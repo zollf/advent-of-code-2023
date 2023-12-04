@@ -94,7 +94,7 @@ defmodule AdventOfCode.Day3.P1 do
   end
 end
 
-File.read!("lib/day3/example.txt")
+File.read!("lib/day3/input.txt")
 |> String.split("\n", trim: true)
 |> AdventOfCode.Day3.P1.parse()
 |> AdventOfCode.Day3.P1.get_part_numbers()
