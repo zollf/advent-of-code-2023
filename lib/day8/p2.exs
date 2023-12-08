@@ -70,25 +70,6 @@ defmodule AdventOfCode.Day8.P2 do
       head * count
     end
   end
-
-  # def traverse(current_nodes, network, path, count) do
-  #   direction = Enum.at(path, rem(count, length(path)))
-
-  #   IO.inspect(current_nodes |> Enum.map(&Map.get(&1, :id)))
-
-  #   if(Enum.all?(current_nodes, &NetworkNode.is_end/1)) do
-  #     count
-  #   else
-  #     next_nodes =
-  #       current_nodes
-  #       |> Enum.map(fn %NetworkNode{} = current_node ->
-  #         next_node_id = if direction == "L", do: current_node.left, else: current_node.right
-  #         Map.get(network, next_node_id)
-  #       end)
-
-  #     traverse(next_nodes, network, path, count + 1)
-  #   end
-  # end
 end
 
 {path, network} =
