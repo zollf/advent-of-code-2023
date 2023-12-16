@@ -1,15 +1,24 @@
-defmodule AdventOfCode.Day12.P1 do
+defmodule AdventOfCode.Day12.P2 do
   def parse(input) do
     input
     |> String.split("\n", trim: true)
     |> Enum.map(fn row ->
       [condition_input, arrangement_input] = String.split(row, " ", trim: true)
-      conditions = String.split(condition_input, "", trim: true)
+
+      conditions =
+        condition_input
+        |> String.split("", trim: true)
+        |> replicate()
+        |> Enum.with_index()
+        |> Enum.map(fn {chunk, i} -> if i < 4, do: chunk ++ ["?"], else: chunk end)
+        |> List.flatten()
 
       arrangements =
         arrangement_input
         |> String.split(",", trim: true)
         |> Enum.map(&String.to_integer/1)
+        |> replicate()
+        |> List.flatten()
 
       {conditions, arrangements}
     end)
@@ -70,13 +79,15 @@ defmodule AdventOfCode.Day12.P1 do
         end
     end
   end
+
+  defp replicate(x), do: for(_ <- 1..5, do: x)
 end
 
 File.read!("lib/day12/input.txt")
-|> AdventOfCode.Day12.P1.parse()
+|> AdventOfCode.Day12.P2.parse()
 |> Enum.map(fn {conditions, arrangements} = params ->
-  {AdventOfCode.Day12.P1.cache_key(conditions, arrangements),
-   AdventOfCode.Day12.P1.get_spring_arrangements(params)}
+  {AdventOfCode.Day12.P2.cache_key(conditions, arrangements),
+   AdventOfCode.Day12.P2.get_spring_arrangements(params)}
 end)
 |> Enum.map(fn {cache_key, mem} -> Map.get(mem, cache_key) end)
 |> Enum.sum()
